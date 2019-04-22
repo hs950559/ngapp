@@ -1,0 +1,103 @@
+<div class="alert alert-info" role="alert">
+  Username: hemant \\ Password: 12345
+</div>
+
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div [hidden]="!error" class="alert alert-danger">
+      {{ error }}
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <fieldset [disabled]="isLoading">
+                  <form (ngSubmit)="login()" [formGroup]="loginForm">
+                    <h1>Login</h1>
+                    <p class="text-muted">Sign In to your account</p>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="ti-user"></i
+                        ></span>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Username"
+                        autocomplete="username"
+                        formControlName="username"
+                        required
+                      />
+                    </div>
+                    <app-control-messages [control]="f['username']"></app-control-messages>
+
+                    <div class="input-group mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="ti-lock"></i
+                        ></span>
+                      </div>
+                      <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        autocomplete="current-password"
+                        formControlName="password"
+                        required
+                      />
+                    </div>
+                    <app-control-messages [control]="f['password']"></app-control-messages>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <button
+                          class="btn btn-primary px-4"
+                          [disabled]="loginForm.invalid"
+                        >
+                          <span [hidden]="isLoading">Login</span>
+                          <span [hidden]="!isLoading">
+                            Loading...
+                          </span>
+                        </button>
+                      </div>
+                      <div class="col-6 text-right">
+                        <button type="button" class="btn btn-link px-0">
+                          Forgot password?
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </fieldset>
+              </div>
+            </div>
+            <div
+              class="card text-white bg-primary py-5 d-md-down-none"
+              style="width:44%"
+            >
+              <div class="card-body text-center">
+                <div>
+                  <h2>Sign up</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+                  <button
+                    type="button"
+                    class="btn btn-primary active mt-3"
+                    routerLink="/auth/register"
+                  >
+                    Register Now!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
