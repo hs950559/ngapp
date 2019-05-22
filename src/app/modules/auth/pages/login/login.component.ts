@@ -5,18 +5,16 @@ import { tap, delay, finalize, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   error: string;
   isLoading: boolean;
   loginForm: FormGroup;
-
+  invalidLogin = false;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -36,20 +34,19 @@ export class LoginComponent implements OnInit {
 
     const credentials = this.loginForm.value;
 
-    this.authService.login(credentials)
-      .pipe(
-        delay(5000),
-        tap(user => this.router.navigate(['/dashboard/home'])),
-        finalize(() => this.isLoading = false),
-        catchError(error => of(this.error = error))
-      ).subscribe();
+    this.authService.login(credentials).subscribe(res => {
+      if (res) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.invalidLogin = true;
+      }
+    });
   }
 
   private buildForm(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
-
 }

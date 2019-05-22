@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { of, Observable, throwError } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../../core/models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 export class ILoginContext {
   username: string;
@@ -20,25 +23,41 @@ const defaultUser = {
 })
 export class AuthService {
   token: string;
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  login(credentials) {
+    return this.http
+      .post('https://hkauthapi.herokuapp.com/users/signin', credentials)
+      .pipe(
+        map((res: any) => {
+          if (res && res.token) {
+            localStorage.setItem('token', res.token);
+            return true;
+          }
+          return false;
+        })
+      );
+  }
 
-  login(loginContext: ILoginContext): Observable<User> {
-    if (
-      loginContext.username === defaultUser.username &&
-      loginContext.password === defaultUser.password) {
-        return of(defaultUser);
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      return true;
+    } else {
+      return false;
     }
-
-    return throwError('Invalid username or password');
   }
 
-  logout(): Observable<boolean> {
-    return of(false);
-  }
+  get currentUser() {
+    const token = localStorage.getItem('token');
+    if (!token) { return null; }
 
-  getToken() {
-    return this.getToken;
+    const helper = new JwtHelperService();
+    return helper.decodeToken(token);
   }
-
 }

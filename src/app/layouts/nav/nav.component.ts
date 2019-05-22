@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/core';
 
 
 @Component({
@@ -14,14 +15,13 @@ export class NavComponent implements OnInit {
   navItems = [
     { link: '/dashboard/home', title: 'Home' },
     { link: '/about', title: 'About' },
-    { link: '/contact', title: 'Contact' }
+    { link: '/contact', title: 'Contact' },
+    { link: '/projects', title: 'Projects' }
   ];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
 
   }
-
-
 }

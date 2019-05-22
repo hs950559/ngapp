@@ -12,12 +12,12 @@ import { Observable } from 'rxjs';
 export class TokenInterceptor implements HttpInterceptor {
   constructor() {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    // request = request.clone({
-    //   setHeaders: {
-    //     Authorization: `Bearer ${this.auth.getToken()}`
-    //   }
-    // });
+    console.log('herer babbay');
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer dd`
+      }
+    });
     return next.handle(request);
   }
 }

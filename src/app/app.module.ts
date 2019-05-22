@@ -9,6 +9,9 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { NavComponent } from './layouts/nav/nav.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './core/interceptors';
+import { CoreModule } from './core';
 
 @NgModule({
   declarations: [
@@ -22,9 +25,15 @@ import { NavComponent } from './layouts/nav/nav.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule,
+    CoreModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

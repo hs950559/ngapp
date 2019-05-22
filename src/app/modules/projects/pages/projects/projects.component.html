@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Thumbnail</th>
+      <th scope="col">Title</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects">
+      <th>{{ project.id }}</th>
+      <td><img [src]="project.thumbnail" alt="{{project.title}}" class="w-25"></td>
+      <td>{{ project.title }}</td>
+      <td>@mdo</td>
+    </tr>
+  </tbody>
+</table>
