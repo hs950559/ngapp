@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
     { link: '/projects', title: 'Projects' }
   ];
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
 
