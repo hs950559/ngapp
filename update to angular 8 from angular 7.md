@@ -129,9 +129,17 @@ npm i typescript@3.4.3 -D
 
 // Now run `ng serve -o` again
 http://localhost:4200/
+```
+
+## Step 6 
+
+```
+// update your code to v8, angular material imports, lazy load syntax etc
+ng update --all
 
 Boom! all done
 ```
+
 
 ## How i came to this version of `typescript@3.4.3`
 
